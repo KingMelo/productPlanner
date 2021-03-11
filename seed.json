@@ -1,0 +1,41 @@
+{
+    "orgProduct": [
+        {
+            "id":"01",
+            "date":"3-5-2021",
+            "orgName":"Organization 1",
+            "endpointCount":20000,            
+            "type":"endpoint",
+            "status":"tuning",
+            "product":"Palo XDR",
+            "groups":[
+                {
+                    "lastUpdate":"3-6-2021",
+                    "groupName":"workstations",
+                    "policy":"phase 1"
+                },
+                {
+                    "lastUpdate":"3-6-2021",
+                    "groupName":"servers",
+                    "policy":"phase 3"
+                }
+            ],
+            "alertCount":[
+                {
+                    "timestamp":"3-6-2021",
+                    "weekly":325,
+                    "daily":87
+                },
+                {
+                    "timestamp":"3-7-2021",
+                    "weekly":225,
+                    "daily":65
+                }
+            ],
+            "csRules": "true",
+            "ztapTraining": "false",
+            "prodApprovals":"false"                                    
+        }
+    ]    
+}
+

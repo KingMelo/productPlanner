@@ -10,6 +10,10 @@ let createXDRProduct = function(){
     //Status
     let status = "Tuning";
     orgProduct["status"] = status;
+
+    //BIOC 
+    let bioc = "Not Applied"
+    orgProduct["bioc"] = bioc;
     
     //Alert Count
     alertCountWeekly = 100

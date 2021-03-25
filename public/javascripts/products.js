@@ -6,6 +6,7 @@ orgName = "Organization1"
 endpointCount = 2000
 endpointDeployed = 1025
 product = "XDR"
+orgDescription = "real estate company"
 
 let createXDRProduct = function(){
     //Name of org, product, endpointCount
@@ -13,9 +14,14 @@ let createXDRProduct = function(){
     orgProduct["endpointCount"] = endpointCount
     orgProduct["endpointDeployed"] = endpointDeployed
     orgProduct["product"] = product
+    orgProduct["description"] = orgDescription
     
     //Status
     orgProduct["status"] = status[1];
+
+    //BIOC 
+    let bioc = false
+    orgProduct["bioc"] = bioc;
     
     //Alert Count
     alertCountWeekly = 100
@@ -67,6 +73,3 @@ if (product == "XDR"){
 orgProduct["alertCounts"].unshift({"alertCountWeekly":50, "alertCountDaily":12, "timestamp":"3-13-2021"})
 
 console.log(orgProduct);
-
-
-export {orgName,endpointCount,endpointDeployed,product,orgProduct,alertCountWeekly, alertCountDaily, alertCounts};

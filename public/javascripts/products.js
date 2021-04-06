@@ -1,27 +1,18 @@
 let orgName, endpointCount, endpointDeployed, product, alertCountWeekly, alertCountDaily, alertCounts;
-let status = ["hold", "tuning", "production"]
+let status = ["hold", "tuning", "production","playbook"]
 let orgProduct = {};
 
-orgName = "Organization1"
-endpointCount = 2000
-endpointDeployed = 1025
-product = "XDR"
-orgDescription = "real estate company"
 
-let createXDRProduct = function(){
+
+let createProduct = function(orgName, endpointCount, endpointDeployed, product){
     //Name of org, product, endpointCount
     orgProduct["orgName"] = orgName
     orgProduct["endpointCount"] = endpointCount
     orgProduct["endpointDeployed"] = endpointDeployed
     orgProduct["product"] = product
-    orgProduct["description"] = orgDescription
     
     //Status
     orgProduct["status"] = status[1];
-
-    //BIOC 
-    let bioc = false
-    orgProduct["bioc"] = bioc;
     
     //Alert Count
     alertCountWeekly = 100
@@ -37,20 +28,10 @@ let createXDRProduct = function(){
         }
     ]
     orgProduct["alertCounts"] = alertCounts
-    
-    
-    
-    //Create function for adding groups
-    let groups = [];
-    groups.push({"groupName":"Group1","policy":"Phase1"});
-    groups.push({"groupName":"Group2","policy":"Phase2"});
-    
-    //Add all groups as a property to orgProduct
-    orgProduct["groups"] = groups;
 
     //Add comment section
     createCommentSection();
-    }
+}
 
 
 let createCommentSection = function() {
@@ -66,10 +47,21 @@ let createCommentSection = function() {
 }
 
 
-if (product == "XDR"){
-    createXDRProduct();
+
+
+createProduct("organization1",2000,1025,"XDR");
+
+//If XDR product, add policy name 
+if (orgProduct["product"] === "XDR"){
+    
 }
 
-orgProduct["alertCounts"].unshift({"alertCountWeekly":50, "alertCountDaily":12, "timestamp":"3-13-2021"})
+//If S1 product, add site and groups
+
+//If Siem, add log sources
+
 
 console.log(orgProduct);
+
+
+

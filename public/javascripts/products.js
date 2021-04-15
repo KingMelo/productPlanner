@@ -51,9 +51,8 @@ let createCommentSection = function() {
 
 createProduct("organization1",2000,1025,"XDR");
 
-//If XDR product, add policy name 
+//If XDR product, add policy/group name 
 if (orgProduct["product"] == 'XDR'){
-    //Loop that 
     let groups = []
     function addGroup(groupName, exploit, malware){
         let group = {}
@@ -63,14 +62,16 @@ if (orgProduct["product"] == 'XDR'){
         groups.push(group)
 
     }
-    addGroup("test group", "phase 2", "phase 2")
-    addGroup("test group2", "phase 3", "phase 1")
+    let addNewGroup = true
+    if(addNewGroup == true){
+        addGroup("test group", "phase 1", "phase 2")
+    } else{
+        console.log("No more groups to be added")
+    }
+    
     // console.log(groups)
 
-    orgProduct["groups"] = groups
-
-
-    
+    orgProduct["groups"] = groups    
 }
 
 //If S1 product, add site and groups

@@ -9,4 +9,11 @@ Can add weekly and daily alert Count
 
 
 
+<<<<<<< HEAD
 Automatically adjust cards based on Current Phase, Alert Count, and Time in Phase ratios
+=======
+Automatically adjust cards based on Current Phase, Alert Count, and Time in Phase ratios
+
+![alt text](https://imgur.com/gyevU9C)
+![alt text](https://imgur.com/6TV8nyT)
+>>>>>>> 32d3b39236c8524d1e99c0c35b348a5d8fc71b95

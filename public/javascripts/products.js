@@ -1,3 +1,13 @@
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://kingpen2:Kestrel24!@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log("Connected to DB")
+});
+
+
 let orgName, endpointCount, endpointDeployed, product, alertCountWeekly, alertCountDaily, alertCounts;
 let status = ["hold", "tuning", "production","playbook"]
 let orgProduct = {};
@@ -79,7 +89,7 @@ if (orgProduct["product"] == 'XDR'){
 //If Siem, add log sources
 
 
-console.log(orgProduct);
+//console.log(orgProduct);
 
 
 

@@ -1,20 +1,33 @@
 const mongoose = require('mongoose');
+
 mongoose.connect('mongodb+srv://kingpen2:Kestrel24!@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log("Connected to DB")
-});
+//db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   // we're connected!
+//   console.log("Connected to DB")
+// });
+
+//Product Schema
+const productSchema = new mongoose.Schema({
+    orgName: String,
+    endpointCount: Number,
+    endpointDeployed: Number,
+    product: String,
+    status: String,
+    //Add array properties below
+})
 
 
-let orgName, endpointCount, endpointDeployed, product, alertCountWeekly, alertCountDaily, alertCounts;
-let status = ["hold", "tuning", "production","playbook"]
+
+
 let orgProduct = {};
 
 
-
 let createProduct = function(orgName, endpointCount, endpointDeployed, product){
+    let status = ["hold", "tuning", "production","playbook"]
+    
+
     //Name of org, product, endpointCount
     orgProduct["orgName"] = orgName
     orgProduct["endpointCount"] = endpointCount
@@ -40,28 +53,20 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product){
     orgProduct["alertCounts"] = alertCounts
 
     //Add comment section
+    let createCommentSection = function() {
+        //Create comment object
+        let comment = [
+            {
+                "content":"",
+                "timestamp":"",
+                "type": ""
+            }
+        ]
+        orgProduct["comments"] = comment;
+    }
     createCommentSection();
-}
 
-
-let createCommentSection = function() {
-    //Create comment object
-    let comment = [
-        {
-            "content":"",
-            "timestamp":"",
-            "type": ""
-        }
-    ]
-    orgProduct["comments"] = comment;
-}
-
-
-
-
-createProduct("organization1",2000,1025,"XDR");
-
-//If XDR product, add policy/group name 
+    //If XDR product, add policy/group name 
 if (orgProduct["product"] == 'XDR'){
     let groups = []
     function addGroup(groupName, exploit, malware){
@@ -84,12 +89,20 @@ if (orgProduct["product"] == 'XDR'){
     orgProduct["groups"] = groups    
 }
 
+
+
+}
+
+//createProduct("organization1",2000,1025,"XDR");
+//console.log(orgProduct)
+
+
 //If S1 product, add site and groups
 
 //If Siem, add log sources
 
-
 //console.log(orgProduct);
 
+module.exports = 'Hello world';
 
 

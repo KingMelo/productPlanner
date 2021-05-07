@@ -19,6 +19,10 @@ const alertSchema = new mongoose.Schema({
     timestamp: Date
 });
 
+const groupSchema = new mongoose.Schema({
+    groupName: String
+})
+
 const productSchema = new mongoose.Schema({
     orgName: String,
     endpointCount: Number,
@@ -26,7 +30,8 @@ const productSchema = new mongoose.Schema({
     product: String,
     status: String,
     alertCounts: [alertSchema],
-    comments: [commentSchema]
+    comments: [commentSchema],
+    groups: [groupSchema]
 })
 
 const Product = mongoose.model('Product', productSchema);

@@ -29,9 +29,10 @@ const productSchema = new mongoose.Schema({
     endpointDeployed: Number,
     product: String,
     status: String,
+    groups: [groupSchema],
     alertCounts: [alertSchema],
-    comments: [commentSchema],
-    groups: [groupSchema]
+    comments: [commentSchema]
+    
 })
 
 const Product = mongoose.model('Product', productSchema);
@@ -61,31 +62,12 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product){
     orgProduct["status"] = status[1];
     
     //Alert Count & Log
-    alertCountWeekly = 100
-    alertCountDaily = 24
-    let alertTimestamp = "3-10-2021"
-    alertCounts = [
-        {
-        "alertCountWeekly":alertCountWeekly, 
-        "alertCountDaily": alertCountDaily, 
-        "timestamp":alertTimestamp
-        }
-    ]
+    alertCounts = []
     orgProduct["alertCounts"] = alertCounts
 
     //Add comment section
-    let createCommentSection = function() {
-        //Create comment object
-        let comment = [
-            {
-                "content":"",
-                "timestamp":"",
-                "type": ""
-            }
-        ]
-        orgProduct["comments"] = comment;
-    }
-    createCommentSection();
+    let comments = []
+    orgProduct["comments"] = comments;
 
     //If XDR product, add policy/group name 
     if (orgProduct["product"] == 'XDR'){
@@ -115,7 +97,10 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product){
                 endpointCount: endpointCount, 
                 endpointDeployed: endpointDeployed, 
                 product: product, 
-                status: status
+                status: status,
+                groups: groups,
+                alertCounts: alertCounts,
+                comments: comments
             }
         );
         console.log(newOrg)
@@ -129,7 +114,7 @@ createProduct("organization1",2000,1025,"XDR");
 
 router.get('/', function(req, res, next) {
   //res.render('index', { title: 'Express'});
-  res.send(allProducts)
+  res.send(orgProductList)
 });
 
 module.exports = router;

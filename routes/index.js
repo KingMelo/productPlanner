@@ -38,19 +38,8 @@ const productSchema = new mongoose.Schema({
 const Product = mongoose.model('Product', productSchema);
 
 
-// orgOne.save(function (err, orgOne) {
-//     if (err) return console.error(err);
-// });
 
-let allProducts = function(){
-    
-}
-
-
-let orgProductList = [];
-
-let createProduct = function(orgName, endpointCount, endpointDeployed, product){
-    let status = ["hold", "tuning", "production","playbook"]
+let createProduct = function(orgName, endpointCount, endpointDeployed, product, status){
     let orgProduct = {};
 
     
@@ -59,7 +48,7 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product){
     orgProduct["endpointCount"] = endpointCount
     orgProduct["endpointDeployed"] = endpointDeployed
     orgProduct["product"] = product
-    orgProduct["status"] = status[1];
+    orgProduct["status"] = status;
     
     //Alert Count & Log
     alertCounts = []
@@ -88,7 +77,7 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product){
         orgProduct["groups"] = groups  
 
         //Push to Product List Array
-        orgProductList.push(orgProduct)
+        //orgProductList.push(orgProduct)
 
         //Define product model
         const newOrg = new Product(
@@ -103,12 +92,30 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product){
                 comments: comments
             }
         );
-        console.log(newOrg)
+
+        //Add to DB
+        // db.on('error', console.error.bind(console, 'connection error:'));
+        // db.once('open', function() {
+        //     console.log("Connected to DB")
+        //     console.log("Adding new org " + orgName)
+            
+        //     newOrg.save(function(err, newOrg) {
+        //         if (err) return console.error(err);
+        //     })
+        // });
+        
     }
 }
 
-createProduct("organization1",2000,1025,"XDR");
+createProduct("organization 3",2000,1025,"XDR","tuning");
 // createProduct("organization2",500,25,"XDR");
+
+let orgProductList = []
+
+Product.find(function (err, products) {
+    if (err) return console.error(err);
+    orgProductList.push(products)
+})
 
 /* GET home page. */
 

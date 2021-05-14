@@ -37,8 +37,7 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-
-
+//Create Organization with Product
 let createProduct = function(orgName, endpointCount, endpointDeployed, product, status){
     let orgProduct = {};
 
@@ -76,8 +75,6 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product, 
         }
         orgProduct["groups"] = groups  
 
-        //Push to Product List Array
-        //orgProductList.push(orgProduct)
 
         //Define product model
         const newOrg = new Product(
@@ -120,8 +117,8 @@ Product.find(function (err, products) {
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-  //res.render('index', { title: 'Express'});
-  res.send(orgProductList)
+  res.render('index', { title: 'Express'});
+  //res.send(orgProductList)
 });
 
 module.exports = router;

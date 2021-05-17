@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://kingpen2:Kestrel24!@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
+let hello = "poop"
 
 //Product, Comment, Alert Schemas
 const commentSchema = new mongoose.Schema({
@@ -58,22 +59,8 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product, 
     orgProduct["comments"] = comments;
 
     //If XDR product, add policy/group name 
-    if (orgProduct["product"] == 'XDR'){
-        let groups = []
-        function addGroup(groupName, exploit, malware){
-            let group = {}
-            group["groupName"] = groupName
-            group["exploit"] = exploit
-            group["malware"] = malware
-            groups.push(group)
-        }
-        let addNewGroup = true
-        if(addNewGroup == true){
-            addGroup("test group", "phase 1", "phase 2")
-        } else{
-            console.log("No more groups to be added")
-        }
-        orgProduct["groups"] = groups  
+    let groups = []
+    orgProduct["groups"] = groups  
 
 
         //Define product model
@@ -91,34 +78,46 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product, 
         );
 
         //Add to DB
-        // db.on('error', console.error.bind(console, 'connection error:'));
-        // db.once('open', function() {
-        //     console.log("Connected to DB")
-        //     console.log("Adding new org " + orgName)
+        db.on('error', console.error.bind(console, 'connection error:'));
+        db.once('open', function() {
+            console.log("Connected to DB")
+            console.log("Adding new org " + orgName)
             
-        //     newOrg.save(function(err, newOrg) {
-        //         if (err) return console.error(err);
-        //     })
-        // });
+            newOrg.save(function(err, newOrg) {
+                if (err) return console.error(err);
+            })
+        });
+
         
     }
-}
 
-createProduct("organization 3",2000,1025,"XDR","tuning");
+
+//createProduct("organization 3",2000,1025,"XDR","tuning");
 // createProduct("organization2",500,25,"XDR");
 
-let orgProductList = []
-
-Product.find(function (err, products) {
-    if (err) return console.error(err);
-    orgProductList.push(products)
-})
 
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express'});
-  //res.send(orgProductList)
+    Product.find({}, function(err, products){
+        res.render('index', { 
+            title: 'Express', 
+            products: products,
+      
+        });
+    })
 });
+
+// Parameter for searched
+// router.get('/poop', function(req, res, next) {
+//     Product.find({}, function(err, products){
+//         res.render('poop', { 
+//             title: 'Espresso', 
+//             products: products,
+      
+//         });
+//     })
+// });
+
 
 module.exports = router;

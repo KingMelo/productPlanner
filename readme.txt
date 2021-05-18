@@ -11,8 +11,6 @@ Can add weekly and daily alert Count
 
 Automatically adjust cards based on Current Phase, Alert Count, and Time in Phase ratios
 
-
-![screenshotOne](https://github.com/KingMelo/productPlanner/blob/main/pic/Capture1.PNG?raw=true)
-![screenshotTwo](https://github.com/KingMelo/productPlanner/blob/main/pic/Capture2.PNG?raw=true)
+Road Map: https://www.notion.so/11f243ace50b4a7686745b0ca4508f45?v=a3623fa23896490ba3d4d21d9ea836af
 
 

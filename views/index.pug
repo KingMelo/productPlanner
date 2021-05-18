@@ -5,53 +5,30 @@ block content
   h1= title
   p Welcome to the Product planner
   
-  //h2= products[0]
+  
 
   .contianer 
     .row 
       .col 
-        .accordion 
-          ul 
-            each val, key in products
-              .accordion-item
-                h2#headingOne.accordion-header
-                button.accordion-button(type='button', data-bs-toggle='collapse', data-bs-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
-                  li #{val.orgName} - #{val.endpointDeployed} / #{val.endpointCount}
-              #collapseOne.accordion-collapse.collapse(aria-labelledby='headingOne', data-bs-parent='#accordionExample')
+        #accordionExample.accordion
+          each val, key in products
+            .accordion-item
+              //Header for 
+              h2.accordion-header(id= val.orgName)
+                button.accordion-button(type='button', data-bs-toggle='collapse', data-bs-target= '#' + 'a' + val._id, aria-expanded='true', aria-controls= 'a' + val._id)
+                  .row 
+                    | #{val.orgName} - #{val.product} - #{val.endpointDeployed} / #{val.endpointCount}
+              
+              //Product, Status, Alert Count
+              .accordion-collapse.collapse(id= 'a' + val._id, aria-labelledby= val.orgName)
                 .accordion-body
-                  .row
-                    .col
-                      strong Product: 
-                      | #{val.product} &nbsp; 
-                      strong Status: 
-                      | #{val.status} &nbsp; 
-                      strong Alert Count: 
-                      | #{val.alertCount}
-                  .row
-                    .col 
-                    //Groups
-                    strong Groups/Policies/Use Cases: 
-                      |#{val.groups[0]}
-                  .row
-                    .col 
-                    // Tabs navs
-                    ul#ex1.nav.nav-tabs.mb-3(role='tablist')
-                      li.nav-item(role='presentation')
-                        a#ex1-tab-1.nav-link.active(data-mdb-toggle='tab', href='#ex1-tabs-1', role='tab', aria-controls='ex1-tabs-1', aria-selected='true') Endpoint
-                      li.nav-item(role='presentation')
-                        a#ex1-tab-2.nav-link(data-mdb-toggle='tab', href='#ex1-tabs-2', role='tab', aria-controls='ex1-tabs-2', aria-selected='false') SIEM
-                      li.nav-item(role='presentation')
-                        a#ex1-tab-3.nav-link(data-mdb-toggle='tab', href='#ex1-tabs-3', role='tab', aria-controls='ex1-tabs-3', aria-selected='false') PMO
-                    // Tabs navs
-                    // Tabs content
-                    #ex1-content.tab-content
-                      #ex1-tabs-1.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='ex1-tab-1')
-                        | Tab 1 content
-                      #ex1-tabs-2.tab-pane.fade(role='tabpanel', aria-labelledby='ex1-tab-2')
-                        | Tab 2 content
-                      #ex1-tabs-3.tab-pane.fade(role='tabpanel', aria-labelledby='ex1-tab-3')
-                        | Tab 3 content
-                    // Tabs content
+                  strong Product: &apos;
+                  |  #{val.product} &apos;
+                  strong Status: &apos;
+                  |  #{val.status} &apos;
+
+              //Groups
+
 
       .col 
       .col

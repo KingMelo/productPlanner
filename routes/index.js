@@ -101,7 +101,7 @@ let createProduct = function(orgName, endpointCount, endpointDeployed, product, 
 router.get('/', function(req, res, next) {
     Product.find({}, function(err, products){
         res.render('index', { 
-            title: 'Express', 
+            title: 'Product Planner', 
             products: products,
       
         });

@@ -30,6 +30,8 @@ const productSchema = new mongoose.Schema({
     endpointDeployed: Number,
     product: String,
     status: String,
+    psa_id: String
+    licenseStart: String,
     groups: [groupSchema],
     alertCounts: [alertSchema],
     comments: [commentSchema]

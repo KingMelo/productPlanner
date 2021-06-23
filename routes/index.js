@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var ztap = require('../public/js/ztapQuery');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://kingpen2:Kestrel24!@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
-let hello = "poop"
+
 
 //Product, Comment, Alert Schemas
 const commentSchema = new mongoose.Schema({
@@ -30,7 +31,7 @@ const productSchema = new mongoose.Schema({
     endpointDeployed: Number,
     product: String,
     status: String,
-    psa_id: String
+    psa_id: String,
     licenseStart: String,
     groups: [groupSchema],
     alertCounts: [alertSchema],
@@ -108,6 +109,8 @@ router.get('/', function(req, res, next) {
       
         });
     })
+
+    
 });
 
 // Parameter for searched
@@ -120,6 +123,9 @@ router.get('/', function(req, res, next) {
 //         });
 //     })
 // });
+
+
+
 
 
 module.exports = router;

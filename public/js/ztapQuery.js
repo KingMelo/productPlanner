@@ -1,5 +1,6 @@
 //Alert Queries
-const https = require('https');
+const { default: axios } = require('axios');
+const https = require('axios');
 let apiAuth = require("../../apiKey")
 
 let weeklyAlert, dailyAlert, filters, product;
@@ -7,7 +8,7 @@ let weeklyAlert, dailyAlert, filters, product;
 const options = {
     hostname: 'portalapi.threatanalytics.io',
     port: 443,
-    path: '/api/1.5/matchers/?limit=10&ordering=created%3Adesc&page=1&product=devo&psa_id=bregal&typ=filter',
+    path: '/api/1.5/incidents/?-Sort%20By=Incident%20Created&Incident%20Created=1week&Incident%20Status=Open&Organization=poolcorp&Product=azure_sentinel&fields=32',
     method: 'GET',
     headers: {
         'authorization': apiAuth.key,
@@ -16,27 +17,24 @@ const options = {
   };
  
 
-//Last Week https://portalapi.threatanalytics.io/api/1.5/matchers/?limit=10&ordering=created%3Adesc&page=1&product=devo&psa_id=bregal&typ=filter
-let getWeeklyAlert = function(total){
-    https.get(options,(res) => {
-    console.log('statusCode:', res.statusCode);
-    console.log('headers:', res.headers);
-
-    res.on('data', function(data) {
-        let jsonObj = JSON.parse(data);
-        let jsonStr = JSON.stringify(jsonObj);
-        console.log(jsonStr);
-        
-    });
-
-    }).on('error', (e) => {
-        console.error(e);
-    });
-
-    
+//Last Week https://portalapi.threatanalytics.io/api/1.5/incidents/?-Sort%20By=Incident%20Created&Incident%20Created=1week&Incident%20Status=Open&Organization=poolcorp&Product=azure_sentinel&fields=32
+//Need to get "total" key for alert count
+let getWeeklyAlert = function(){
+    axios.get('https://portalapi.threatanalytics.io/api/1.5/incidents/?-Sort%20By=Incident%20Created&Incident%20Created=1week&Incident%20Status=Open&Organization=poolcorp&Product=azure_sentinel&fields=32', {
+        headers: {
+            'authorization': apiAuth.key,
+            'x-organization': apiAuth.xOrg
+        }
+    })
+    .then(result => {
+        console.log(result.data.total)
+    })
+    .catch(error => {
+        console.log(error)
+    })
     
 }
-
+getWeeklyAlert();
 
 
 

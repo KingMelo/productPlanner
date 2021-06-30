@@ -8,7 +8,6 @@ let weeklyAlert, dailyAlert, filters, product;
 const options = {
     hostname: 'https://portalapi.threatanalytics.io',
     port: 443,
-    path: '/api/1.5/incidents/?-Sort%20By=Incident%20Created&Incident%20Created=1week&Incident%20Status=Open&Organization=poolcorp&Product=azure_sentinel&fields=32',
     method: 'GET',
     headers: {
         'authorization': apiAuth.key,
@@ -60,20 +59,45 @@ let getDailyAlert = function(org, product){
     })
     
 }
-getDailyAlert("ahernrentals", "xdr");
 
-//Filter: https://portalapi.threatanalytics.io/api/1.5/matchers/?limit=10&ordering=created%3Adesc&page=1&product=devo&psa_id=bregal&typ=filter
-let getFilters = function(prodId){
-    
-}
+
+
 
 //Get Product: https://portalapi.threatanalytics.io/api/1.5/subscriptions/1633/
 //Check if parent: https://portalapi.threatanalytics.io/api/1.5/organizations/966/ (parent key)
-let getProduct = function(){
-    //authenticate into ztap
-    //Define product and org
-    //
-}
+let getProduct = function(productNumber){
+    
+    //Get psaid and name
 
+    //Get product status
+    let queryString = options.hostname + '/api/1.5/subscriptions/' + productNumber + '/'
+    axios.get(queryString, {
+        headers: {
+            'authorization': apiAuth.key,
+            'x-organization': apiAuth.xOrg
+        }
+    })
+    .then(result => {
+        console.log(result.data)
+        console.log("Org Name:" + " " + result.data.organization.name)
+        console.log("Psaid:" + " " + result.data.organization.psa_id)
+        console.log("Product Identifier:" + " " + result.data.name)
+        console.log("Product Name:" + " " + result.data.name_label)
+        console.log("ZTAP ID:" + " " + result.data.id)
+        console.log("Deployment Status:" + " " + result.data.status)
+        console.log("Install Date:" + " " + result.data.install_date)
+        console.log("Purchased Volume:" + " " + result.data.license.purchased)
+        console.log("Deployed:" + " " + result.data.license.verified)    
+        
+        getDailyAlert(result.data.organization.psa_id, result.data.name)
+    })
+    .catch(error => {
+        console.log(error)
+    }) 
+
+    
+    
+}
+getProduct(1220);
 
 module.exports = getWeeklyAlert;

@@ -41,9 +41,10 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-//Create Organization with Product
+//Get Organization with Product
 let createProduct = function(orgName, endpointCount, endpointDeployed, product, status){
     let orgProduct = {};
+    
 
     
     //Name of org, product, endpointCount, Status

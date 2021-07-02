@@ -33,6 +33,7 @@ const productSchema = new mongoose.Schema({
     status: String,
     psa_id: String,
     licenseStart: String,
+    alertCount: Number,
     groups: [groupSchema],
     alertCounts: [alertSchema],
     comments: [commentSchema]
@@ -43,45 +44,47 @@ const Product = mongoose.model('Product', productSchema);
 
 ztap.getProduct(1409)
     .then(data => {
-        let obj = {}
-
-        obj['orgName'] =  data.organization.name
-        obj['orgId'] =  data.organization.id
-        obj['psaId'] =  data.organization.psa_id
-        obj['productId'] =  data.name
-        obj['productName'] =  data.name_label
-        obj['status'] = data.status
-        obj['ztapId'] =  data.id
-        obj['status'] =  data.status
-        obj['installDate'] =  data.install_date
-        obj['licenseCount'] =  data.license.purchased
-        obj['deployed'] =  data.license.verified
-
-        console.log(obj)
+        let obj = {
+            orgName: data.organization.name,
+            orgId: data.organization.id,
+            psaId: data.organization.psa_id,
+            productId: data.name,
+            productName: data.name_label,
+            status: data.status,
+            ztapId: data.id,            
+            installDate: data.install_date,
+            licenseCount: data.license.purchased,
+            deployed: data.license.verified
+        }
 
         //Save Product to db
         const newOrg = new Product(
             { 
                 orgName: obj.orgName, 
-                // endpointCount: endpointCount, 
-                // endpointDeployed: endpointDeployed, 
-                // product: product, 
-                // status: status,
+                psa_id: obj.psaId,
+                endpointCount: obj.licenseCount, 
+                endpointDeployed: obj.deployed, 
+                product: obj.productId, 
+                status: obj.status,
+                
+                
                 // groups: groups,
                 // alertCounts: alertCounts,
                 // comments: comments
             }
         );
 
+        
+
         //Add to DB
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function() {
             console.log("Connected to DB")
-            console.log("Adding new org " + newOrg.orgName)
+            console.log("Adding new org " + newOrg)
             
-            // newOrg.save(function(err, newOrg) {
-            //     if (err) return console.error(err);
-            // })
+            newOrg.save(function(err, newOrg) {
+                if (err) return console.error(err);
+            })
         });
 
     })

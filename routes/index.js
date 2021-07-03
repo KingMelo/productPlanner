@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var ztap = require('../public/js/ztapQuery');
+let apiAuth = require("../apiKey")
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://kingpen2:Kestrel24!@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://kingpen2:' + apiAuth.password + '@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
 
@@ -30,6 +31,7 @@ const productSchema = new mongoose.Schema({
     endpointCount: Number,
     endpointDeployed: Number,
     product: String,
+    productId: String,
     status: String,
     psa_id: String,
     licenseStart: String,
@@ -42,7 +44,9 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-ztap.getProduct(1409)
+
+
+ztap.getProduct(2376)
     .then(data => {
         let obj = {
             orgName: data.organization.name,
@@ -64,7 +68,8 @@ ztap.getProduct(1409)
                 psa_id: obj.psaId,
                 endpointCount: obj.licenseCount, 
                 endpointDeployed: obj.deployed, 
-                product: obj.productId, 
+                productId: obj.productId, 
+                product: obj.productName,
                 status: obj.status,
                 
                 

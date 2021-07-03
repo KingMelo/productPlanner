@@ -34,15 +34,6 @@ const options = {
 
 }
    
-
-
-
-
-
-
-
-
-
 //Get Parent
 function getParent(orgId){
     let queryString = options.hostname + '/api/1.5/organizations/' + orgId + '/'

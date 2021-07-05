@@ -78,64 +78,26 @@ ztap.getProduct(2376)
                 // comments: comments
             }
         );
-
+        
+        console.log(obj)
         
 
         //Add to DB
-        db.on('error', console.error.bind(console, 'connection error:'));
-        db.once('open', function() {
-            console.log("Connected to DB")
-            console.log("Adding new org " + newOrg)
+        // db.on('error', console.error.bind(console, 'connection error:'));
+        // db.once('open', function() {
+        //     console.log("Connected to DB")
+        //     console.log("Adding new org " + newOrg)
             
-            newOrg.save(function(err, newOrg) {
-                if (err) return console.error(err);
-            })
-        });
+        //     newOrg.save(function(err, newOrg) {
+        //         if (err) return console.error(err);
+        //     })
+        // });
 
     })
     .catch(err => console.log(err))
 
 
-let createProduct = function(orgName, licenseCount, deployed, productName, status){
-    let orgProduct = {};
-    
-    
-    orgProduct["orgName"] = orgName
-    // orgProduct["endpointCount"] = endpointCount
-    // orgProduct["endpointDeployed"] = endpointDeployed
-    // orgProduct["product"] = product
-    // orgProduct["status"] = status;
-    
-    //Alert Count & Log
-    // alertCounts = []
-    // orgProduct["alertCounts"] = alertCounts
 
-    // //Add comment section
-    // let comments = []
-    // orgProduct["comments"] = comments;
-
-    // //If XDR product, add policy/group name 
-    // let groups = []
-    // orgProduct["groups"] = groups  
-
-    //Define product model
-    const newOrg = new Product(
-        { 
-            orgName: orgName, 
-            // endpointCount: endpointCount, 
-            // endpointDeployed: endpointDeployed, 
-            // product: product, 
-            // status: status,
-            // groups: groups,
-            // alertCounts: alertCounts,
-            // comments: comments
-        }
-    );
-
-    
-
-    
-}
 
 
 /* GET home page. */

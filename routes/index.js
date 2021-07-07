@@ -3,8 +3,9 @@ var router = express.Router();
 var ztap = require('../public/js/ztapQuery');
 let apiAuth = require("../apiKey")
 
+
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://kingpen2:' + apiAuth.password + '@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://' + apiAuth.dbUser + ':' + apiAuth.password + '@cluster0.br9xr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
 

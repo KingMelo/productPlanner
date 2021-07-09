@@ -51,19 +51,15 @@ let getDailyAlert = function(org, product){
     //Get query parameters
     let queryString = options.hostname + '/api/1.5/incidents/?-Sort%20By=Incident%20Created&Incident%20Created=1day&Incident%20Status=Open&Organization=' + org + "&Product=" + product + "&fields=32"
     
-    axios.get(queryString, {
+    const promise = axios.get(queryString, {
         headers: {
             'authorization': apiAuth.key,
             'x-organization': apiAuth.xOrg
         }
     })
-    .then(data => {
-        //obj['dailyAlerts'] =  data.total
-        //console.log( data.total + " " + "alerts in the last 24 hours")
-    })
-    .catch(error => {
-        console.log(error)
-    })    
+    const dataPromise = promise.then((response) => response.data)
+
+    return dataPromise    
 }
 
 

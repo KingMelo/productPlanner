@@ -61,7 +61,7 @@ ztap.getProduct(2376)
             licenseCount: data.license.purchased,
             deployed: data.license.verified,
         }
-        //obj['weeklyAlert'] = ztap.getWeeklyAlert(obj.psaId, obj.productId).then(data => {return data}).catch(err => console.log(err))
+        
 
         //Save Product to db
         const newOrg = new Product(
@@ -81,7 +81,7 @@ ztap.getProduct(2376)
             }
         );
         
-        console.log(obj)
+        
         
 
         //Add to DB
@@ -99,8 +99,40 @@ ztap.getProduct(2376)
     .catch(err => console.log(err))
 
 
+//Get weekly and daily alert count
+function saveCounts(org, prod){
+
+    alertObj = {}
+
+    ztap.getWeeklyAlert(org, prod)
+    .then(data => {
+        alertObj['weekly'] = data.total;            
+    })
+    .catch(err => console.log(err))
+    
+    
+    ztap.getDailyAlert(org, prod)
+    .then(data => {
+        alertObj['daily'] = data.total; 
+    })
+    .catch(err => console.log(err))
+
+    let delayInMilliseconds = 3000;
+    setTimeout(function(){
+        console.log(alertObj) 
+    }, delayInMilliseconds) 
+}
+
+//Search Document for psaid and product
 
 
+
+//Save alert counts to docs
+
+    
+
+    
+   
 
 /* GET home page. */
 
@@ -111,10 +143,12 @@ router.get('/', function(req, res, next) {
             products: products,
       
         });
-        console.log
+        
     })
 
-    //Update all products with alert counts
+    console.log(Product.findOne({psa_id: 'ahernrentals'}).exec());
+    
+    
 });
 
 

@@ -59,8 +59,9 @@ ztap.getProduct(2376)
             ztapId: data.id,            
             installDate: data.install_date,
             licenseCount: data.license.purchased,
-            deployed: data.license.verified
+            deployed: data.license.verified,
         }
+        //obj['weeklyAlert'] = ztap.getWeeklyAlert(obj.psaId, obj.productId).then(data => {return data}).catch(err => console.log(err))
 
         //Save Product to db
         const newOrg = new Product(
@@ -110,7 +111,10 @@ router.get('/', function(req, res, next) {
             products: products,
       
         });
+        console.log
     })
+
+    //Update all products with alert counts
 });
 
 

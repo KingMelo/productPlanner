@@ -4,7 +4,12 @@ extends layout
 block content
   h1= title
   p Welcome to the Product planner
-  
+
+  .input-group.rounded
+    input.form-control.rounded(type='search' placeholder='Search' aria-label='Search' aria-describedby='search-addon')
+    span#search-addon.input-group-text.border-0
+      i.fas.fa-search
+
   
 
   .contianer 
@@ -24,8 +29,16 @@ block content
                 .accordion-body
                   strong Product: &apos;
                   |  #{val.product} &apos;
+                  br
                   strong Status: &apos;
                   |  #{val.status} &apos;
+                  br
+                  br
+                  strong Daily: &apos;
+                  |  #{val.daily} &apos;
+                  br
+                  strong Weekly: &apos;
+                  |  #{val.weekly} &apos;
 
               //Groups & Policies
 
